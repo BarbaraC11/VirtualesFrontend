@@ -9,7 +9,9 @@
   export let user = {};
   export let openCategoryAciertala;
   export let gameselect;
-
+  export let abrirVentanaCompletaConEspacioREGISTRO;
+export let botonesDeshabilitados;
+export let abrirVentana;
 
   let username = user && user.usernme;
   let password = user && user.password;
@@ -32,26 +34,8 @@
       user = {};
     }
   });
-  function abrirVentanaCompletaConEspacio() {
-    const ancho = window.outerWidth;
-    const alto = window.outerHeight - 216; // Resta 64px para dejar el espacio en la parte superior
-    const posicionTop = 216; // Desplaza la ventana hacia abajo 64px
-    console.log("alto",alto,"ancho",ancho);
 
-    const nuevaVentana = window.open(
-        localStorage.getItem("urlAciertalaRegister"), // URL de la página que quieres abrir
-        "_blank", // Nombre de la ventana
-        `width=${ancho},height=${alto},left=0,top=${posicionTop}`
-    );
-
-    const verificarCierre = setInterval(() => {
-    if (nuevaVentana.closed) {
-        clearInterval(verificarCierre); // Detiene el intervalo cuando la ventana está cerrada
-        openCategoryAciertala("deportes")
-        // Aquí puedes realizar alguna acción cuando se detecte el cierre
-    }
-}, 500); // Verifica cada 500ms si la ventana está cerrada
-  }
+ 
 
 </script>
 <div class="u-main-no-login">
@@ -61,7 +45,7 @@
     <p>PROMOCIONES</p>
   </button>
   </div> -->
-  <button class="bottom signup" on:click={abrirVentanaCompletaConEspacio}>REGISTRO</button>
+  <button class="bottom signup" on:click={() => abrirVentana(2, localStorage.getItem("urlAciertalaRegister"))} disabled={botonesDeshabilitados[2]}>REGISTRO</button>
 </div>
 
 <style>

@@ -228,6 +228,7 @@ p, b, span, a, li *, button {
   color: white;
   background-color: #b60e29;
   font-size: 0.8rem;
+  width: -webkit-max-content;
   width: -moz-max-content;
   width: max-content;
 }
@@ -377,7 +378,7 @@ p, b, span, a, li *, button {
 
 .Ganawin .btn.signup, .Ganawin .btn.withdrawal, .Ganawin .btn.send {
   background: #f5c20a;
-  box-shadow: 0 0 6px #f5c20a, inset 0 -6px 10px #f5c20a, inset 0 6px 10px hsla(0, 0%, 100%, 0.45), inset 0 0 11px #f5c20a;
+  box-shadow: 0 0 6px #f5c20a, inset 0 -6px 10px #f5c20a, inset 0 6px 10px hsla(0deg, 0%, 100%, 0.45), inset 0 0 11px #f5c20a;
   font-size: 16px;
   font-weight: 600;
 }
@@ -394,6 +395,7 @@ p, b, span, a, li *, button {
 }
 .Ganawin .modal.recoverPassword .modal-body {
   padding: 1rem;
+  height: -webkit-fit-content;
   height: -moz-fit-content;
   height: fit-content;
   max-width: 450px;
@@ -436,55 +438,76 @@ p, b, span, a, li *, button {
   border-radius: 0.0555em;
   background-color: transparent;
   transform-origin: center -0.2222em;
-  animation: spinner-fade 1s infinite linear;
+  -webkit-animation: spinner-fade 1s infinite linear;
+          animation: spinner-fade 1s infinite linear;
 }
 .Ganawin .modal.recoverPassword .recoverPassword__reset .loading p:nth-child(1) {
-  animation-delay: 0s;
+  -webkit-animation-delay: 0s;
+          animation-delay: 0s;
   transform: rotate(0deg);
 }
 .Ganawin .modal.recoverPassword .recoverPassword__reset .loading p:nth-child(2) {
-  animation-delay: 0.083s;
+  -webkit-animation-delay: 0.083s;
+          animation-delay: 0.083s;
   transform: rotate(30deg);
 }
 .Ganawin .modal.recoverPassword .recoverPassword__reset .loading p:nth-child(3) {
-  animation-delay: 0.166s;
+  -webkit-animation-delay: 0.166s;
+          animation-delay: 0.166s;
   transform: rotate(60deg);
 }
 .Ganawin .modal.recoverPassword .recoverPassword__reset .loading p:nth-child(4) {
-  animation-delay: 0.249s;
+  -webkit-animation-delay: 0.249s;
+          animation-delay: 0.249s;
   transform: rotate(90deg);
 }
 .Ganawin .modal.recoverPassword .recoverPassword__reset .loading p:nth-child(5) {
-  animation-delay: 0.332s;
+  -webkit-animation-delay: 0.332s;
+          animation-delay: 0.332s;
   transform: rotate(120deg);
 }
 .Ganawin .modal.recoverPassword .recoverPassword__reset .loading p:nth-child(6) {
-  animation-delay: 0.415s;
+  -webkit-animation-delay: 0.415s;
+          animation-delay: 0.415s;
   transform: rotate(150deg);
 }
 .Ganawin .modal.recoverPassword .recoverPassword__reset .loading p:nth-child(7) {
-  animation-delay: 0.498s;
+  -webkit-animation-delay: 0.498s;
+          animation-delay: 0.498s;
   transform: rotate(180deg);
 }
 .Ganawin .modal.recoverPassword .recoverPassword__reset .loading p:nth-child(8) {
-  animation-delay: 0.581s;
+  -webkit-animation-delay: 0.581s;
+          animation-delay: 0.581s;
   transform: rotate(210deg);
 }
 .Ganawin .modal.recoverPassword .recoverPassword__reset .loading p:nth-child(9) {
-  animation-delay: 0.664s;
+  -webkit-animation-delay: 0.664s;
+          animation-delay: 0.664s;
   transform: rotate(240deg);
 }
 .Ganawin .modal.recoverPassword .recoverPassword__reset .loading p:nth-child(10) {
-  animation-delay: 0.747s;
+  -webkit-animation-delay: 0.747s;
+          animation-delay: 0.747s;
   transform: rotate(270deg);
 }
 .Ganawin .modal.recoverPassword .recoverPassword__reset .loading p:nth-child(11) {
-  animation-delay: 0.83s;
+  -webkit-animation-delay: 0.83s;
+          animation-delay: 0.83s;
   transform: rotate(300deg);
 }
 .Ganawin .modal.recoverPassword .recoverPassword__reset .loading p:nth-child(12) {
-  animation-delay: 0.913s;
+  -webkit-animation-delay: 0.913s;
+          animation-delay: 0.913s;
   transform: rotate(330deg);
+}
+@-webkit-keyframes spinner-fade {
+  0% {
+    background-color: #b60e29;
+  }
+  100% {
+    background-color: transparent;
+  }
 }
 @keyframes spinner-fade {
   0% {
@@ -499,6 +522,7 @@ p, b, span, a, li *, button {
 }
 
 .Ganawin .modal.signup .modal-body {
+  height: -webkit-fit-content;
   height: -moz-fit-content;
   height: fit-content;
   padding: 1rem 1rem 2rem 1rem;
@@ -610,6 +634,14 @@ p, b, span, a, li *, button {
   /* Made by Jimmy Gillam */
   /* Checkmark style starts */
 }
+@-webkit-keyframes dothabottomcheck {
+  0% {
+    height: 0;
+  }
+  100% {
+    height: 10px;
+  }
+}
 @keyframes dothabottomcheck {
   0% {
     height: 0;
@@ -619,6 +651,17 @@ p, b, span, a, li *, button {
   }
 }
 @keyframes dothatopcheck {
+  0% {
+    height: 0;
+  }
+  50% {
+    height: 0;
+  }
+  100% {
+    height: 20px;
+  }
+}
+@-webkit-keyframes dothatopcheck {
   0% {
     height: 0;
   }
@@ -673,11 +716,13 @@ p, b, span, a, li *, button {
 .Ganawin .modal.signup .signup__conditions input[type=checkbox]:checked + label::after,
 .Ganawin .modal.signup .signup__conditions label.checked::after {
   height: 10px;
+  -webkit-animation: dothabottomcheck 0.2s ease 0s forwards;
   animation: dothabottomcheck 0.2s ease 0s forwards;
 }
 .Ganawin .modal.signup .signup__conditions input[type=checkbox]:checked + label::before,
 .Ganawin .modal.signup .signup__conditions label.checked::before {
   height: 24px;
+  -webkit-animation: dothatopcheck 0.4s ease 0s forwards;
   animation: dothatopcheck 0.4s ease 0s forwards;
 }
 .Ganawin .modal.signup .signup__prefix {
@@ -770,6 +815,7 @@ p, b, span, a, li *, button {
   display: grid;
   gap: 0.75rem;
   width: 100%;
+  height: -webkit-fit-content;
   height: -moz-fit-content;
   height: fit-content;
   overflow: auto;
@@ -898,6 +944,7 @@ p, b, span, a, li *, button {
   border: 1px solid #7a7a7d;
 }
 .Ganawin .modal.profile .movements__empty {
+  height: -webkit-fit-content;
   height: -moz-fit-content;
   height: fit-content;
   border: 1px solid #fff;
@@ -931,6 +978,7 @@ p, b, span, a, li *, button {
 .Ganawin .modal.profile .movements__result {
   display: grid;
   gap: 0.5rem;
+  height: -webkit-fit-content;
   height: -moz-fit-content;
   height: fit-content;
   overflow: auto;
@@ -1227,7 +1275,16 @@ p, b, span, a, li *, button {
   width: 100%;
   height: 100%;
   background: rgba(0, 0, 0, 0.3);
-  animation: progress-bar 3s linear forwards;
+  -webkit-animation: progress-bar 3s linear forwards;
+          animation: progress-bar 3s linear forwards;
+}
+@-webkit-keyframes progress-bar {
+  0% {
+    width: 100%;
+  }
+  100% {
+    width: 0;
+  }
 }
 @keyframes progress-bar {
   0% {
@@ -1380,7 +1437,22 @@ p, b, span, a, li *, button {
   background: #088f08;
   font-size: 16px;
   transform: scale(1);
-  animation: pulse 2s infinite;
+  -webkit-animation: pulse 2s infinite;
+          animation: pulse 2s infinite;
+}
+@-webkit-keyframes pulse {
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 rgba(255, 255, 255, 0.9019607843);
+  }
+  70% {
+    transform: scale(1);
+    box-shadow: 0 0 0 10px rgba(255, 255, 255, 0);
+  }
+  to {
+    transform: scale(0.95);
+    box-shadow: 0 0 rgba(255, 255, 255, 0);
+  }
 }
 @keyframes pulse {
   0% {
@@ -1443,7 +1515,13 @@ p, b, span, a, li *, button {
   border-color: rgba(255, 255, 255, 0.3882352941);
   border-top-color: #b60e29;
   border-radius: 50%;
-  animation: spinner_circular 1s linear infinite;
+  -webkit-animation: spinner_circular 1s linear infinite;
+          animation: spinner_circular 1s linear infinite;
+}
+@-webkit-keyframes spinner_circular {
+  100% {
+    transform: rotate(360deg);
+  }
 }
 @keyframes spinner_circular {
   100% {
@@ -1476,12 +1554,14 @@ p, b, span, a, li *, button {
 .Ganawin .modal.configUrl .modal-dialog {
   max-width: 600px;
 }
+.Ganawin .modal.configUrl .modal-body {
+  min-width: 500px;
+  padding-bottom: 2rem;
+}
 .Ganawin .modal.configUrl .configUrl__container {
-  display: grid;
-  grid-template-columns: 25rem 7rem;
+  display: flex;
   gap: 0.5rem;
-  justify-content: center;
-  padding-bottom: 1rem;
+  align-items: center;
 }
 .Ganawin .modal.login .modal-dialog {
   max-width: 360px;
@@ -1496,7 +1576,7 @@ p, b, span, a, li *, button {
 }
 .Ganawin .modal.login .modal-body .btn.login {
   background: #b60e29;
-  box-shadow: 0 0 6px #b60e29, inset 0 -6px 10px #b60e29, inset 0 6px 10px hsla(0, 0%, 100%, 0.45), inset 0 0 11px #b60e29;
+  box-shadow: 0 0 6px #b60e29, inset 0 -6px 10px #b60e29, inset 0 6px 10px hsla(0deg, 0%, 100%, 0.45), inset 0 0 11px #b60e29;
 }
 @media (max-width: 1023px) {
   .Ganawin .modal.login .modal-dialog {
@@ -1547,13 +1627,22 @@ p, b, span, a, li *, button {
   height: 0.5rem;
   background: #fff;
   border-radius: 50%;
-  animation: 0.5s load_3p infinite alternate;
+  -webkit-animation: 0.5s load_3p infinite alternate;
+          animation: 0.5s load_3p infinite alternate;
 }
 .Ganawin .modal.login .loading p:nth-child(2) {
-  animation-delay: 0.1s;
+  -webkit-animation-delay: 0.1s;
+          animation-delay: 0.1s;
 }
 .Ganawin .modal.login .loading p:nth-child(3) {
-  animation-delay: 0.3s;
+  -webkit-animation-delay: 0.3s;
+          animation-delay: 0.3s;
+}
+@-webkit-keyframes load_3p {
+  to {
+    opacity: 0.4;
+    transform: translate3d(0, 0.2rem, 0);
+  }
 }
 @keyframes load_3p {
   to {
@@ -1572,13 +1661,16 @@ p, b, span, a, li *, button {
   height: 0.5rem;
   background: #fff;
   border-radius: 50%;
-  animation: 0.5s load_3p infinite alternate;
+  -webkit-animation: 0.5s load_3p infinite alternate;
+          animation: 0.5s load_3p infinite alternate;
 }
 .Ganawin .modal.recoverPassword .loading p:nth-child(2) {
-  animation-delay: 0.1s;
+  -webkit-animation-delay: 0.1s;
+          animation-delay: 0.1s;
 }
 .Ganawin .modal.recoverPassword .loading p:nth-child(3) {
-  animation-delay: 0.3s;
+  -webkit-animation-delay: 0.3s;
+          animation-delay: 0.3s;
 }
 @keyframes load_3p {
   to {
@@ -1597,13 +1689,16 @@ p, b, span, a, li *, button {
   height: 0.5rem;
   background: #fff;
   border-radius: 50%;
-  animation: 0.5s load_3p infinite alternate;
+  -webkit-animation: 0.5s load_3p infinite alternate;
+          animation: 0.5s load_3p infinite alternate;
 }
 .Ganawin .modal.signup .loading p:nth-child(2) {
-  animation-delay: 0.1s;
+  -webkit-animation-delay: 0.1s;
+          animation-delay: 0.1s;
 }
 .Ganawin .modal.signup .loading p:nth-child(3) {
-  animation-delay: 0.3s;
+  -webkit-animation-delay: 0.3s;
+          animation-delay: 0.3s;
 }
 @keyframes load_3p {
   to {
@@ -1734,6 +1829,7 @@ p, b, span, a, li *, button {
 }
 .Ganawin .modal.deposit .deposit__types {
   display: grid;
+  height: -webkit-fit-content;
   height: -moz-fit-content;
   height: fit-content;
   border-radius: 0.25rem;
@@ -1815,13 +1911,16 @@ p, b, span, a, li *, button {
   height: 0.5rem;
   background: #fff;
   border-radius: 50%;
-  animation: 0.5s load_3p infinite alternate;
+  -webkit-animation: 0.5s load_3p infinite alternate;
+          animation: 0.5s load_3p infinite alternate;
 }
 .Ganawin .modal.deposit .loading p:nth-child(2) {
-  animation-delay: 0.1s;
+  -webkit-animation-delay: 0.1s;
+          animation-delay: 0.1s;
 }
 .Ganawin .modal.deposit .loading p:nth-child(3) {
-  animation-delay: 0.3s;
+  -webkit-animation-delay: 0.3s;
+          animation-delay: 0.3s;
 }
 @keyframes load_3p {
   to {
@@ -1840,13 +1939,16 @@ p, b, span, a, li *, button {
   height: 0.5rem;
   background: #fff;
   border-radius: 50%;
-  animation: 0.5s load_3p infinite alternate;
+  -webkit-animation: 0.5s load_3p infinite alternate;
+          animation: 0.5s load_3p infinite alternate;
 }
 .Ganawin .modal.profile .loading p:nth-child(2) {
-  animation-delay: 0.1s;
+  -webkit-animation-delay: 0.1s;
+          animation-delay: 0.1s;
 }
 .Ganawin .modal.profile .loading p:nth-child(3) {
-  animation-delay: 0.3s;
+  -webkit-animation-delay: 0.3s;
+          animation-delay: 0.3s;
 }
 @keyframes load_3p {
   to {
@@ -1986,13 +2088,16 @@ p, b, span, a, li *, button {
   height: 0.5rem;
   background: #fff;
   border-radius: 50%;
-  animation: 0.5s load_3p infinite alternate;
+  -webkit-animation: 0.5s load_3p infinite alternate;
+          animation: 0.5s load_3p infinite alternate;
 }
 .Ganawin .modal.withdrawal .loading p:nth-child(2) {
-  animation-delay: 0.1s;
+  -webkit-animation-delay: 0.1s;
+          animation-delay: 0.1s;
 }
 .Ganawin .modal.withdrawal .loading p:nth-child(3) {
-  animation-delay: 0.3s;
+  -webkit-animation-delay: 0.3s;
+          animation-delay: 0.3s;
 }
 @keyframes load_3p {
   to {
@@ -2067,13 +2172,16 @@ p, b, span, a, li *, button {
   height: 0.5rem;
   background: #fff;
   border-radius: 50%;
-  animation: 0.5s load_3p infinite alternate;
+  -webkit-animation: 0.5s load_3p infinite alternate;
+          animation: 0.5s load_3p infinite alternate;
 }
 .Ganawin .modal.chatLive .loading p:nth-child(2) {
-  animation-delay: 0.1s;
+  -webkit-animation-delay: 0.1s;
+          animation-delay: 0.1s;
 }
 .Ganawin .modal.chatLive .loading p:nth-child(3) {
-  animation-delay: 0.3s;
+  -webkit-animation-delay: 0.3s;
+          animation-delay: 0.3s;
 }
 @keyframes load_3p {
   to {
@@ -2196,7 +2304,8 @@ p, b, span, a, li *, button {
   border-radius: 50%;
   border: 3px solid transparent;
   border-top-color: #b60e29;
-  animation: 2s spinner-rotate360 linear infinite;
+  -webkit-animation: 2s spinner-rotate360 linear infinite;
+          animation: 2s spinner-rotate360 linear infinite;
 }
 .Ganawin .modal.screenGames .loading b b::before, .Ganawin .modal.screenGames .loading b b::after {
   content: "";
@@ -2210,7 +2319,8 @@ p, b, span, a, li *, button {
   right: 5px;
   bottom: 5px;
   border-top-color: #d8d8d8;
-  animation: spinner-rotate360 2s linear infinite;
+  -webkit-animation: spinner-rotate360 2s linear infinite;
+          animation: spinner-rotate360 2s linear infinite;
 }
 .Ganawin .modal.screenGames .loading b b::after {
   top: 15px;
@@ -2218,7 +2328,16 @@ p, b, span, a, li *, button {
   right: 15px;
   bottom: 15px;
   border-top-color: #ed1437;
-  animation: spinner-rotate360 1s linear infinite;
+  -webkit-animation: spinner-rotate360 1s linear infinite;
+          animation: spinner-rotate360 1s linear infinite;
+}
+@-webkit-keyframes spinner-rotate360 {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    -webkit-transform: rotate(360deg);
+  }
 }
 @keyframes spinner-rotate360 {
   from {
@@ -2464,6 +2583,7 @@ p, b, span, a, li *, button {
   grid-template-columns: repeat(2, minmax(0, 300px));
   padding: 1rem;
   margin: 0 auto;
+  max-width: -webkit-max-content;
   max-width: -moz-max-content;
   max-width: max-content;
 }
@@ -2581,6 +2701,7 @@ p, b, span, a, li *, button {
 }
 @media (orientation: landscape) and (min-width: 1023.99px), (orientation: portrait) and (min-width: 1023.99px) {
   .Ganawin .footer .accordion__body a, .Ganawin .footer .accordion__body .btn {
+    width: -webkit-fit-content;
     width: -moz-fit-content;
     width: fit-content;
   }
@@ -2741,7 +2862,8 @@ p, b, span, a, li *, button {
   border-radius: 50%;
   border: 3px solid transparent;
   border-top-color: #700000;
-  animation: 2s spinner-rotate360 linear infinite;
+  -webkit-animation: 2s spinner-rotate360 linear infinite;
+          animation: 2s spinner-rotate360 linear infinite;
 }
 .Ganawin .detectCountry .loading b b::before, .Ganawin .detectCountry .loading b b::after {
   content: "";
@@ -2755,7 +2877,8 @@ p, b, span, a, li *, button {
   right: 5px;
   bottom: 5px;
   border-top-color: #d8d8d8;
-  animation: spinner-rotate360 2s linear infinite;
+  -webkit-animation: spinner-rotate360 2s linear infinite;
+          animation: spinner-rotate360 2s linear infinite;
 }
 .Ganawin .detectCountry .loading b b::after {
   top: 15px;
@@ -2763,7 +2886,8 @@ p, b, span, a, li *, button {
   right: 15px;
   bottom: 15px;
   border-top-color: #ad0000;
-  animation: spinner-rotate360 1s linear infinite;
+  -webkit-animation: spinner-rotate360 1s linear infinite;
+          animation: spinner-rotate360 1s linear infinite;
 }
 @keyframes spinner-rotate360 {
   from {
@@ -2772,4 +2896,5 @@ p, b, span, a, li *, button {
   to {
     -webkit-transform: rotate(360deg);
   }
-}/*# sourceMappingURL=app.css.map */
+}
+/*# sourceMappingURL=app.css.map */

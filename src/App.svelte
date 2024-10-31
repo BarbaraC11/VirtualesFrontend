@@ -53,6 +53,8 @@
     modalOpened = "promotions";
   };
 
+  let isUrlDinamic = true;
+
   const conf = Configuration.getConfiguration();
   const urlParams = new URLSearchParams(window.location.search);
   const defaultView = urlParams.get("v") || "home";
@@ -152,6 +154,7 @@
     configFooter.country.name = subContry;
     configFooter.country.flag = subflag;
     console.log(configFooter);
+    document.body.removeAttribute("style");
   });
   document.addEventListener("keydown", (e) => {
     if (e.key === "F2") f2Pressed = true;
@@ -641,9 +644,9 @@
     } else if (params == "virtuales") {
       urlAciertala = "";
     }
-    // else if (params == "aciertalaweb"){
-    //   urlAciertala = "https://www.pe.aciertala.com/sport";
-    // }
+    else if (params == "aciertalaweb"){
+      urlAciertala = "logo";
+    }
     else if (params == "resultados") {
       urlAciertala = "https://statsinfo.co/live/1/";
     } else if (params == "estaditicas") {
@@ -654,9 +657,19 @@
     // }
   }
   function saveUrlAciertalaRegister(params) {
+    if (!isUrlDinamic) {
+      urlAciertalaRegister = "https://www.pe.aciertala.com/register"
+    }else{
+      let sidParam = urlAciertalaRegister.match(/SID=([^&]*)/);
+      if (sidParam && sidParam[1].length != 8 || urlAciertalaRegister == "" || sidParam == null) {
+          return alert("URL inválido");
+      }
+    }
     localStorage.setItem("urlAciertalaRegister", urlAciertalaRegister);
     location.reload();
   }
+
+
 </script>
 
 {#if windowLoad}
@@ -683,6 +696,7 @@
         bind:showLoginModal
         bind:showMainLoading
         bind:gameselect
+        bind:urlAciertala
         {openCategoryAciertala}
         {openChatLive}
         {onLogin}
@@ -712,14 +726,19 @@
         {/if}-->
 
         {#if active_view == "home"}
-          <div class="">
+          <div class={ urlAciertala == "logo"?"urlaclogo":""} style="min-height:{heightMainContainer}">
+            {#if urlAciertala == "logo"}
+            <img src="https://cdn.diststore.com/images/products/acp/retail-logo.png" alt="">
+            {:else}
             <iframe
-              src={urlAciertala}
-              frameborder="0"
-              style="min-height:{heightMainContainer}"
-              width="100%"
-              use:watchResize={resizeMainContainer}
-            ></iframe>
+            src={urlAciertala}
+            frameborder="0"
+            style="min-height:{heightMainContainer}"
+            width="100%"
+            use:watchResize={resizeMainContainer}
+          ></iframe>
+            {/if}
+        
           </div>
         {/if}
       </div>
@@ -763,19 +782,26 @@
     <ExpireSession {updateTimeSession} bind:platform {onLogout} />
   </Modalv2>
 
-  <ScreenGames
+  <!-- <ScreenGames
     bind:open={screenGamesOpen}
     bind:platform
     bind:url_game
     {updateBalance}
-  />
+  /> -->
   <div class="Ganawin" style="width: 100%;">
     <Modalv2 bind:open={urlAciertalaModalOpen} bind:modalOpened title="">
-      <div class="configUrl__container">
-        <input type="text" class="ipt" bind:value={urlAciertalaRegister} />
-        <button class="btn save" on:click={() => saveUrlAciertalaRegister()}
-          >GUARDAR</button
-        >
+      <div class="modal-body">
+        <div class="configUrl__container">
+          <label for="url">Url por defecto</label>
+          <input type="checkbox" class="switch" id="url" bind:checked={isUrlDinamic}>
+          <label for="url">Url propia</label>
+        </div>
+        <!-- <div class="configUrl__container"> -->
+         {#if isUrlDinamic}
+         <input type="text" class="ipt" bind:value={urlAciertalaRegister} placeholder="agregar URL" />
+         {/if}
+          <button class="btn save" on:click={() => saveUrlAciertalaRegister()}>GUARDAR</button>
+        <!-- </div> -->
       </div>
     </Modalv2>
   </div>
@@ -794,6 +820,17 @@
     gap: 0.5rem;
     border-radius: 0 10px 10px 0;
   }*/
+
+  .urlaclogo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #313439;
+  }
+  .urlaclogo img{
+    min-width: 20rem;
+    width: 25%;
+  }
   .game_img {
     border-radius: 10px;
   }

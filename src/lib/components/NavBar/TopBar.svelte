@@ -34,6 +34,7 @@
   export let onCategoryChange;
   export let loginModalOpen;
   export let openChatLive;
+  export let urlAciertala;
   category = "slot";
   export let gameselect;
   export let onOpenPromotions;
@@ -160,7 +161,7 @@
     }
   };
   onMount(() => {
-
+    document.body.style.overflow="hidden";
     let currentUrl = window.location.href;
     console.log("domain",currentUrl);
     if(/resetPassword/.test(currentUrl)) {
@@ -175,6 +176,7 @@
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
+    
   });
   
 
@@ -350,27 +352,114 @@ let showWithdrawalModalSMS = false;
             profileModalOpen = false;
         }
     }
+
+    let disableOpenWindow = false;
+
+    let nuevaVentana;
+
     function abrirVentanaCompletaConEspacio() {
     const ancho = window.outerWidth;
     const alto = window.outerHeight - 216; // Resta 64px para dejar el espacio en la parte superior
     const posicionTop = 216; // Desplaza la ventana hacia abajo 64px
     console.log("alto",alto,"ancho",ancho);
 
-    const nuevaVentana = window.open(
+     nuevaVentana = window.open(
         "https://www.pe.aciertala.com/sport", // URL de la página que quieres abrir
+        "_blank", // Nombre de la ventana
+        `width=${ancho},height=${alto},left=0,top=${posicionTop}`
+    );
+    disableOpenWindow = true;
+
+    const verificarCierre = setInterval(() => {
+        if (nuevaVentana.closed) {
+          disableOpenWindow = false;
+            clearInterval(verificarCierre); // Detiene el intervalo cuando la ventana está cerrada
+            openCategoryAciertala("deportes")
+            closewindow()
+            // Aquí puedes realizar alguna acción cuando se detecte el cierre
+        }
+    }, 500); // Verifica cada 500ms si la ventana está cerrada
+  }
+
+  let nuevaVentanaREGISTER;
+  function abrirVentanaCompletaConEspacioREGISTRO() {
+    const ancho = window.outerWidth;
+    const alto = window.outerHeight - 216; // Resta 64px para dejar el espacio en la parte superior
+    const posicionTop = 216; // Desplaza la ventana hacia abajo 64px
+    console.log("alto",alto,"ancho",ancho);
+    urlAciertala = "logo";
+     nuevaVentanaREGISTER = window.open(
+        localStorage.getItem("urlAciertalaRegister"), // URL de la página que quieres abrir
         "_blank", // Nombre de la ventana
         `width=${ancho},height=${alto},left=0,top=${posicionTop}`
     );
 
     const verificarCierre = setInterval(() => {
-    if (nuevaVentana.closed) {
-        clearInterval(verificarCierre); // Detiene el intervalo cuando la ventana está cerrada
-        openCategoryAciertala("deportes")
-        // Aquí puedes realizar alguna acción cuando se detecte el cierre
-    }
-}, 500); // Verifica cada 500ms si la ventana está cerrada
+        if (nuevaVentanaREGISTER.closed) {
+          disableOpenWindow = false;
+            clearInterval(verificarCierre); // Detiene el intervalo cuando la ventana está cerrada
+            openCategoryAciertala("deportes")
+            // Aquí puedes realizar alguna acción cuando se detecte el cierre
+        }
+    }, 500); // Verifica cada 500ms si la ventana está cerrada
+
   }
-  
+
+  let ventanaEmergente = null; // Almacena la referencia de la ventana emergente
+  let botonesDeshabilitados = [false, false, false,false]; // Estado de los botones (habilitado/deshabilitado)
+  const isWinWebview = () => window["chrome"] && window["chrome"]["webview"] ? true : false;
+  function abrirVentana(index, url) {
+
+    if (index == 0) {
+      gameselect = 'aciertalaweb';
+    }else if (index == 1) {
+      gameselect = 'transmision';
+    }else if (index == 3) {
+      gameselect = 'navegador';
+    }
+    console.log("gameselect",gameselect,ventanaEmergente,index);
+    
+    const posicionTop = isWinWebview()?86:146;
+    const ancho = window.innerWidth;
+    const alto = window.innerHeight - posicionTop;
+    
+        // Cierra la ventana existente si ya hay una abierta
+        if (ventanaEmergente && !ventanaEmergente.closed) {
+            ventanaEmergente.close();
+        }
+        urlAciertala = "logo";
+
+        // Abre la nueva ventana emergente y deshabilita el botón correspondiente
+        ventanaEmergente = window.open(url, "_blank", `width=${ancho},height=${alto},left=0,top=${posicionTop}`);
+        botonesDeshabilitados = botonesDeshabilitados.map((_, i) => i === index);
+        
+        // Monitorea el cierre de la ventana cada segundo
+        const intervalID = setInterval(() => {
+            if (ventanaEmergente.closed) {
+                habilitarTodosLosBotones();
+                openCategoryAciertala("deportes");
+                clearInterval(intervalID);
+            }
+        }, 1000);
+    }
+
+    function habilitarTodosLosBotones() {
+        // Restablece el estado de los botones para habilitarlos todos
+        botonesDeshabilitados = [false, false, false,false];
+        console.log(botonesDeshabilitados);
+        console.log(botonesDeshabilitados[3]);
+        
+        
+    }
+
+
+
+  function closewindow(params) {
+    ventanaEmergente.close();
+  }
+
+
+
 
 
 </script>
@@ -394,23 +483,52 @@ let showWithdrawalModalSMS = false;
 <video class="gif" muted autoplay loop src="https://assetsapiusoft.s3.us-west-2.amazonaws.com/aciertalaTech/banner.mp4" alt=""> </video>
 </button>
         <div class="header_games">
-          <button class="btn game dep {gameselect==='deportes'?'u-category-select1':''}" on:click={()=>openCategoryAciertala("deportes")}>
+          <button class="btn game dep {gameselect==='deportes'?'u-category-select1':''}" on:click={()=>{openCategoryAciertala("deportes");closewindow()}}>
             <p class="text btn"> DEPORTES </p>
           </button> 
-          <button class="btn game vivo {gameselect==='envivo'?'u-category-select2':''} " on:click={()=>openCategoryAciertala("envivo")}>
+          <button class="btn game vivo {gameselect==='envivo'?'u-category-select2':''} " on:click={()=>{openCategoryAciertala("envivo");closewindow()}}>
             <span class= "text btn"> VIVO </span>
           </button>
-          <button class="btn game vir {gameselect==='virtuales'?'u-category-select3':''}" on:click={()=>openCategoryAciertala("virtuales")}>
+          <button class="btn game vir {gameselect==='virtuales'?'u-category-select3':''}" on:click={()=>{openCategoryAciertala("virtuales"),closewindow()}}>
             <span class= "text btn"> VIRTUALES </span>
+            <div class="nextanun yellow">Golden Race</div>
           </button>
-          <button class="btn game web {gameselect==='aciertalaweb'?'u-category-select4':''} aciertala" on:click={()=>{openCategoryAciertala("aciertalaweb");abrirVentanaCompletaConEspacio()}}>
-            <span class= "text btn"> ACIERTALA WEB </span>
-          </button>
-          <button class="btn game result {gameselect==='resultados'?'u-category-select5':''}" on:click={()=>openCategoryAciertala("resultados")}>
+          <button class="btn game result {gameselect==='resultados'?'u-category-select5':''}" on:click={()=>{openCategoryAciertala("resultados");closewindow()}}>
             <span class= "text btn"> RESULTADO EN VIVO </span>
           </button>
-          <button class="btn game estad {gameselect==='estaditicas'?'u-category-select6':''}" on:click={()=>openCategoryAciertala("estaditicas")}>
+          <button class="btn game estad {gameselect==='estaditicas'?'u-category-select6':''}" on:click={()=>{openCategoryAciertala("estaditicas");closewindow()}}>
             <span class= "text btn"> ESTADITICAS </span>
+          </button>
+          <button class="btn game web {gameselect==='aciertalaweb'?'u-category-select4':''} aciertala"  on:click={() => abrirVentana(0, 'https://www.pe.aciertala.com/sport')} disabled={botonesDeshabilitados[0]}>
+            <span class= "text btn"> ACIERTALA WEB </span>
+            <div class="nextanun green">Login</div>
+          </button>
+          <button class="btn game web {gameselect==='transmision'?'u-category-select6':''} aciertalaxd" on:click={() => abrirVentana(1, 'https://365livesport.org/')} disabled={botonesDeshabilitados[1]}>
+            <span class= "text btn"> TRANSMISIÓN </span>
+          </button>
+          <button class="btn game web {gameselect==='navegador'?'u-category-select7':''} chrome" on:click={() => abrirVentana(3, 'https://www.google.com/')} disabled={botonesDeshabilitados[3]}>
+            <span class= "text btn fee">
+              <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 400 400">
+                <defs>
+                  <style>
+                    .cls-1 {
+                      fill: #fff;
+                    }
+                  </style>
+                </defs>
+                <!-- Generator: Adobe Illustrator 28.7.1, SVG Export Plug-In . SVG Version: 1.2.0 Build 142)  -->
+                <g>
+                  <g id="Capa_1">
+                    <g>
+                      <path class="cls-1" d="M14.47,189.85c1.21-8.58,2.09-17.22,3.71-25.72,4.27-22.38,12.75-43.12,25.3-62.93.84,1.66,1.49,2.87,2.09,4.11,21.74,44.95,43.44,89.91,65.21,134.84,11.69,24.13,29.52,41.84,54.83,51.45,16.75,6.36,33.99,7.81,51.62,4.52.58-.11,1.17-.18,2.39-.37-1.14,1.46-1.9,2.49-2.72,3.49-20.99,25.73-42.02,51.43-62.92,77.23-1.7,2.1-3.11,2.19-5.44,1.5-38.21-11.38-69.64-32.83-94.34-63.99-18.28-23.06-30.41-49.15-36.02-78.1-1.51-7.79-2.11-15.76-3.15-23.65-.15-1.18-.39-2.35-.58-3.53,0-6.28,0-12.56,0-18.85Z"/>
+                      <path class="cls-1" d="M211.63,14.44c6.42.91,12.86,1.65,19.24,2.77,40.33,7.11,74.37,25.94,102.65,55.39,3.67,3.83,7.02,7.96,10.51,11.97.22.25.29.63.62,1.36-7.18.81-14.17,1.62-21.17,2.37-26.39,2.86-52.79,5.7-79.18,8.55-18.24,1.97-36.48,3.84-54.71,5.93-40.35,4.63-72.52,32.01-83.6,71.02-.26.91-.55,1.81-1.02,3.32-.8-1.45-1.39-2.39-1.86-3.38-14.31-29.91-28.59-59.83-42.96-89.72-1.01-2.11-1.04-3.47.64-5.36,29.34-32.98,65.48-53.9,109.06-61.63,6.39-1.13,12.88-1.75,19.32-2.61,7.49,0,14.98,0,22.47,0Z"/>
+                      <path class="cls-1" d="M176.16,383.72c6.11-7.49,11.8-14.49,17.51-21.48,27.42-33.57,54.76-67.2,82.27-100.7,34.43-41.94,27.44-104.89-15.47-138.16-2.25-1.74-4.55-3.42-7.48-5.62,8.29-.91,15.78-1.74,23.28-2.54,26.4-2.83,52.8-5.61,79.19-8.55,3.14-.35,4.83.29,6.48,3.27,16.29,29.37,24.61,60.81,23.5,94.35-1.89,57.37-25.65,104.27-69.99,140.49-28.09,22.95-60.59,35.93-96.66,39.82-13.97,1.51-27.94,1.21-42.63-.9Z"/>
+                      <path class="cls-1" d="M199.57,276.1c-42.09-.43-76.01-34.75-75.64-76.54.38-41.97,34.83-76.02,76.55-75.66,41.96.37,76.07,34.88,75.65,76.55-.43,42.01-34.9,76.07-76.56,75.65ZM200.21,232.59c17.72-.15,32.51-15.07,32.42-32.69-.1-17.77-14.89-32.51-32.6-32.49-17.88.03-32.86,15.13-32.59,32.87.28,17.87,15.07,32.46,32.77,32.32Z"/>
+                    </g>
+                  </g>
+                </g>
+              </svg>
+              Google </span>
           </button>
         </div>
 
@@ -440,7 +558,9 @@ let showWithdrawalModalSMS = false;
           {onShowUserCreation}
           {onOpenLogin}
           {onOpenSignup}
+          {abrirVentana}
           {openCategoryAciertala}
+          bind:botonesDeshabilitados
           bind:gameselect
           bind:showMainLoading
           bind:user
@@ -542,6 +662,20 @@ let showWithdrawalModalSMS = false;
 </Modal-->
 
 <style>
+
+  .nextanun{
+    position: absolute;
+    right: 0.15rem;
+    border-radius: 0.5rem;
+    font-size: 10px;
+    padding: 0.1rem 0.2rem;
+  }
+  .nextanun.yellow{
+    background: #f4ff00;
+  }
+  .nextanun.green{
+    background: #00d234;
+  }
 .content-logo{
   position: relative;
 }
@@ -725,12 +859,23 @@ let showWithdrawalModalSMS = false;
     line-height: normal;
     border:none;
   
+  
+  }
+  .text.btn.fee{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+  .text.btn svg{
+    width: 1.75rem;
   }
 
   .class-b{
     display: flex;
   }
   .game{
+    position: relative;
     border-radius: 5px;
     background: #3E3E3E;
     box-shadow: 0px 21px 9.5px -13px rgba(209, 209, 209, 0.25) inset, 0px -13px 11px -5px rgba(0, 0, 0, 0.27) inset;
@@ -782,6 +927,16 @@ background-color: #5E24AF;
 .btn.game.result:hover,
     .u-category-select5{
 background-color: #AF2424;
+/* width: 8rem; */
+}
+.btn.game.aciertalaxd:hover,
+    .u-category-select6{
+background-color: #a324af;
+/* width: 8rem; */
+}
+.btn.game.chrome:hover,
+    .u-category-select7{
+background-color: #da6623;
 /* width: 8rem; */
 }
 .user-header.virtuales{

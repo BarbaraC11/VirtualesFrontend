@@ -153,14 +153,17 @@ $bgi-signup: "https://wallpapers.com/images/featured/horse-racing-ghym6kfaky4hep
             .modal-dialog{
                 max-width: 600px;
             }
-            & .configUrl{
-            &__container{
-                display: grid;
-                grid-template-columns: 25rem 7rem;
-                gap: 0.5rem;
-                justify-content: center;
-                padding-bottom: 1rem;
+            .modal-body{
+                min-width: 500px;
+                padding-bottom: 2rem;
             }
+            & .configUrl{
+                &__container{
+                    display: flex;
+                    gap: 0.5rem;
+                    align-items: center;
+            
+                }
             }
         }
         &.login{
