@@ -1,0 +1,240 @@
+$media-small: 960px;
+@media (max-width: $media-small) {
+    .modal-dialog{
+        margin: 0;
+    }
+    .profile {
+        &.content {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            height: 100vh;
+        }
+    
+        &.personaldata {
+            background: $bg-profile;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            color: white;
+            font-size: 1em;
+            background-color: #181824;
+    
+            &__copycode {
+                background: transparent;
+            }
+            &__user {
+                padding-top: 0.5rem;
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                gap: 1rem;
+                justify-content: space-between;
+                width: 85%;
+            }
+            &__userdata {
+                display: flex;
+                flex-direction: row;
+                gap: 0.5rem;
+                background-color: #4f4f5f;
+                width: 85%;
+                padding: 0.4rem;
+                border-radius: 0.3rem;
+            }
+            &__userbalance {
+                display: flex;
+                flex-direction: column;
+                gap: 0.5rem;
+                background-color: #4f4f5f;
+                width: 85%;
+                padding: 0.4rem;
+                border-radius: 0.3rem;
+            }
+            
+            }
+    
+            &.balance {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                background-color: transparent;
+    
+                &.btn {
+                    padding: 0.5rem;
+    
+                    &_deposit {
+                        background-color: #5ba968;
+                    }
+    
+                    &_withdrawal {
+                        background-color: #67666B;
+                        }
+                }
+            }
+            &.options{
+                display: grid;
+                grid-template-columns: 1fr 1fr 1fr;
+                width: 88%;
+                padding: 0.5rem;
+                &__useroptions {
+                        display: flex;
+                        flex-direction: column;
+                        background-color: #4f4f5f;
+                        width: 100%;
+                        padding: 0.4rem;
+                        color: white;
+                        border-radius: 0.5rem;
+
+                
+                        &.u-opt-select {
+                            background-color: #392456;
+                        }
+
+            }
+        }
+    
+        &.viewinformation {
+            display: flex;
+            flex-direction: column;
+            background: white;
+            color: black;
+            border-radius: 0 1rem 1rem 0;
+    
+            &_header {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: 0.5rem;
+                background-color: #67577e;
+                color: white;
+            }
+        }
+    
+    }
+}
+
+.profile {
+    .btn{
+        padding: 0.5rem;
+        color: white;
+        font-weight: normal;
+        text-transform: none;
+        @extend %buttonhover;
+        &_deposit{
+            background-color: $color-deposit;
+        }
+        &_withdrawal{
+            background-color: $color-withdrawal;
+        }
+    }
+}
+
+
+@media (min-width: $media-small) {
+.profile {
+    &.content {
+        display: grid;
+        grid-template-columns: 30% 70%;
+        width: 80%;
+        height: 80vh;
+    }
+
+    &.personaldata {
+        background: $bg-profile;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5rem;
+        color: white;
+        font-size: 1em;
+        padding-bottom: 1rem;
+        background-color: #111118;
+
+        &__copycode {
+            background: transparent;
+        }
+
+        &__user {
+            padding-top: 0.5rem;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        &__userdata {
+            display: flex;
+            flex-direction: row;
+            gap: 0.5rem;
+            background-color: #4f4f5f;
+            width: 85%;
+            padding: 0.4rem;
+            border-radius: 0.3rem;
+        }
+
+        &__userbalance {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            background-color: #4f4f5f;
+            width: 85%;
+            padding: 0.4rem;
+            border-radius: 0.3rem;
+        }
+
+        
+
+        &.balance {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            background-color: transparent;
+        }
+
+        &.options{
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            &__useroptions {
+                display: flex;
+                flex-direction: column;
+                background-color: #4f4f5f;
+                width: 85%;
+                padding: 0.4rem;
+                color: white;
+                border-radius: 0.5rem;           
+                &.u-opt-select {
+                    background-color: #392456;
+                }
+            }
+
+        }
+        
+    }
+
+    &.viewinformation {
+        gap: 0.5rem;
+        color: white;
+        font-size: 1em;
+        display: flex;
+        flex-direction: column;
+        background: white;
+        color: black;
+        border-radius: 0 1rem 1rem 0;
+        height: 100%;
+
+        &_header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.5rem;
+            background-color: #67577e;
+            color: white;
+        }
+    }
+    &.information--data{
+        height: 100%;
+        padding-top: 2rem;
+    }
+
+}
+}

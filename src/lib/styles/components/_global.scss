@@ -1,0 +1,409 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+input{
+    &[type=number]{
+        -moz-appearance:textfield;
+        &::-webkit-inner-spin-button,&::-webkit-outer-spin-button{
+            -webkit-appearance: none; 
+            margin: 0; 
+        }
+    }
+    &:-webkit-autofill, 
+    &:-webkit-autofill:hover, 
+    &:-webkit-autofill:focus,
+    &:-internal-autofill-selected {
+        padding: 0.5rem !important;
+    }
+}
+
+input[type=date] {
+    -webkit-appearance: none;
+    appearance: none;
+    background-image: url("#{$calendar}");// ewsto puede ser un mixin, tambibne se us aen el input
+    background-repeat: no-repeat;
+    background-size: #{$g-font-size + 4};
+    background-position: right 0.5rem center;
+    &::-webkit-calendar-picker-indicator {
+        background:0 0;
+    }
+    @-moz-document url-prefix() {//calendar firefox default
+        &{
+            background-image: none; 
+            padding-right: 0;
+        }
+    }
+}
+
+
+//input[type=checkbox] {
+//   cursor: pointer;
+//}
+
+img{
+    -webkit-touch-callout: none; /* Desactiva el menú contextual en Safari */
+}
+
+#{$body},body,p,ul{
+    margin: 0;
+}
+body{
+    font-family: $g-font;
+}
+p,b,span,a,li *,button{ //default size safari
+    line-height: 1;
+}
+
+.btn{
+    @extend %button;
+    //for modal
+    &.close {
+        width: #{$g-font-size + 4};
+        height: #{$g-font-size + 4};
+        background: transparent;
+        padding: 0;
+        background-image: url("#{$close}");
+        background-repeat: no-repeat;
+    }
+}
+
+
+#{$body}{    //PROHIBIDO AGREGAR body aqui mismo!!!, DAÑAS ABSOLUTAMENTE TODOS los styles de las marcas blancas
+    overscroll-behavior: none; /*eliminar el efecto scroll extendido fuera del body en safari*/
+    background: #202124;
+    *{
+        color: #{$g-color};
+    }
+    font-family: $g-font;
+    font-size: $g-font-size;
+    background: $bgc-body;
+    user-select: none;
+    -webkit-user-select: none;
+    .btn{
+        @extend %button;
+        //for modal
+        &.close {
+            width: #{$g-font-size + 4};
+            height: #{$g-font-size + 4};
+            background: transparent;
+            padding: 0;
+            background-image: url("#{$close}");
+            background-repeat: no-repeat;
+        }
+        &.eye{
+            @include bgIconCenter($eye,"default");   
+        }
+        &.no-eye{
+            @include bgIconCenter($no-eye,"default");
+        }
+    }
+    .slc{
+        @extend %select;
+    }
+    .ipt{
+        @extend %input;
+    }
+    // .switch{
+    //     @include checkboxSwitch;
+    // }
+    
+    a{
+        &.btn{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+        }
+        b{
+            color: $color-primary;
+            text-decoration: underline;
+        }
+    }
+
+    // a, link, input, button, select, textarea e iframe. / cuando has visto aun ciego jugar casino ?xdd, por eso esto es valido
+    :focus, :focus-visible{
+        outline: 0;
+    }
+    //.d-none{
+    //    //display: none !important;
+    //}
+
+        //.header{
+    //    background: $bgc-header;
+    //}
+}
+
+
+
+/*h6, h5, h4, h3, h2, h1{
+    margin: 0;
+    font-weight: 500;
+}*/
+
+
+//select{
+//    font-size: inherit;
+//}
+
+// input, select, button ; en caso sean bg claros o oscuros cambiar el color que tiene el disabled
+
+// para cualquier elemento, evita el evento click
+//.disabled{
+//    pointer-events: none;
+//
+//}
+
+
+
+
+
+//input[type=date] {
+//    min-width: 100%;
+//    -webkit-appearance: none;
+//    -moz-appearance: none;
+//    appearance: none;
+//    position: relative
+//}
+//  
+//input[type=date]::-webkit-calendar-picker-indicator {
+//  filter: invert(68%) sepia(11%) saturate(12%) hue-rotate(322deg) brightness(87%) contrast(91%)
+//}
+//
+//
+//@media (min-width: $size-web) {
+//    input[type=date]::-webkit-calendar-picker-indicator {
+//        background:0 0
+//    }
+//  
+//    input[type=date]:before {
+//        font-family: "font awesome 5 free";
+//        content: "\f133";
+//        position: absolute;
+//        right: .5rem;
+//        color: #999
+//    }
+//}
+
+//MODAL GLOBAL
+.modal {
+    overscroll-behavior: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1055;
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    background: rgba(0, 0, 0, 0.5);
+    &.sub{
+        z-index: 1056;
+    }
+    &-open{
+      overflow: hidden;
+      padding-right: 15px;
+    }   
+    &-dialog {
+        position: relative;
+        max-width: 100%;
+        margin: 4rem auto;
+        pointer-events: none;
+    }
+    & .centered{
+      min-height: calc(100% - 8rem);
+     // min-height: calc(100% - #{$height-header * 2});
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    &-content {
+        position: relative;
+        pointer-events: auto;
+        background: $bg-modal;
+        border-radius: $borderR-btn;
+        width: 100%;
+        display: grid;
+        grid-template-rows: 3rem 1fr;
+        overflow: auto;
+    }
+    //  &-backdrop {
+    //    position: fixed;
+    //    top: 0;
+    //    left: 0;
+    //    z-index: 1050 ;
+    //    width: 100vw;
+    //    height: 100vh;
+    //    opacity: .5;
+    //    background: #000;
+    //}
+    &-header {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      align-items: center;
+      text-transform: uppercase;
+      padding: 0 1rem;
+      font-size: #{$g-font-size + 4};
+      font-weight: 700;
+    }
+    &-body{
+        display: grid;
+        gap: $gap-form;
+        align-content: center;
+        margin: 0 auto;
+    }
+    @media #{$portrait_size_tablet} {
+        &-body{
+            max-width: 600px;
+        }
+    }
+    .btn{
+        height: $ipt-height;
+        //&.close{
+        //    width: #{$g-font-size + 12};
+        //    height: #{$g-font-size + 15};
+        //    background: transparent;
+        //    border: none;
+        //    padding: 0;
+        //    background-image: url("#{$close}");
+        //    background-repeat: no-repeat;
+        //}
+        &.eye {
+            @include bgIconCenter($eye,"default");
+        }
+        &.no-eye {
+            @include bgIconCenter($no-eye,"default");
+        }
+          
+    }
+
+}
+
+.accordion{
+    &__select{
+        @extend %accordion;
+    }
+    &__body {
+        gap: 0.25rem;
+        display: none;
+        padding-left: 0.5rem;
+        & *{
+            background-color: transparent;
+            color: #d7d7d7;
+            text-align: left;
+        }
+    }
+    &.active{
+        .accordion{
+            &__select{
+                background-image: url("#{$arrow-top}");
+                color: $color-primary;
+            }
+            &__body {
+                display: grid;
+            }
+        }
+    }
+}
+
+.button-access-login {
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.45rem;
+    border: none;
+    color: white;
+    background-color: $color-primary;
+    font-size: 0.8rem;
+    width: max-content;
+}
+.button-check-in {
+    display: flex;
+    color: $color-success-text;
+    border: none;
+    padding: 0.45rem;
+    background-color: $color-success;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+//DROPDOWN - UNO PUEDE PERSONZALIZAR EL COLO OJITO- PERO FALTA HACER ESTO
+.dropdown{
+    position: relative;
+    &-menu {
+        position: absolute;
+        z-index: 1056;
+        min-width: 100%;
+        margin: 0;
+        text-align: left;
+        list-style: none;
+        background: $bg-dropdown;
+        background-clip: padding-box;
+        border-radius: 0.25rem;
+        & .btn {
+            text-align: left;
+        }
+    }
+    &-item {
+        display: block;
+        width: 100%;
+        padding: 0.25rem 1rem;
+        clear: both;
+        font-weight: 400;
+        color: #212529;
+        text-align: inherit;
+        text-decoration: none;
+        white-space: nowrap;
+        background: transparent;
+        border: 0;
+    }
+}
+
+//div{
+//    color: $color-txt;
+//}
+//.btn{
+//    border:0px;
+//    border-radius: 4px;
+//    font-weight: bold;
+//    text-transform: uppercase;
+//    position: relative;
+//    cursor: pointer;
+//    
+//}
+
+//.btn:hover::after{
+//    content: " ";
+//    position: absolute;
+//    top: 0;
+//    left:0;
+//    width:100%;
+//    height: 100%;
+//    background:rgba(0,0,0,0.2);
+//}
+// .btn:active {
+//     transform: scale(0.98);
+//     box-shadow: 3px 2px 10px 1px rgba(0, 0, 0, 0.5);
+// }
+//
+// .btn-default {
+//     background-color: #ddd;
+//     color: #333;
+//     cursor: pointer;
+// }
+// .btn-default:hover{
+//    background-color: #ccc;
+// }
+//
+//.btn-primary{
+//    background-color: $color-primary;
+//    color: $color-primary-text;
+//}
+//
+// .ipt {
+//     @extend %input;
+// }
